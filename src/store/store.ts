@@ -1,13 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { Socket } from '../utils/socket'
 // import { socketMiddleware } from './middleware/socketMiddleware'
-import priceSlice from '../store/slices/marketPriceSlice'
+import priceSlice from '../store/slices/marketPriceSlice';
+import socketSlice from '../store/slices/socketListSlice'
 import { multiSocketMiddleware } from './middleware/multiSocketMiddleware'
 
 
 export const store = configureStore({
     reducer: {
-        price: priceSlice
+        price: priceSlice,
+        socketSlice: socketSlice
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(multiSocketMiddleware(new Socket())),

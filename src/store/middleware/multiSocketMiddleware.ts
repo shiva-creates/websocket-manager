@@ -1,13 +1,17 @@
 import type { Middleware } from '@reduxjs/toolkit';
 import { Socket } from '../../utils/socket';
 import { setMarketPrice } from '../slices/marketPriceSlice';
+import { addSocket, deleteSocket } from '../slices/socketListSlice';
 
 // const URL = 'wss://fstream.binance.com/ws/btcusdt@markPrice';
 
-const socketList: any = {};
+// const socketList: any = {};
 
 
-export const multiSocketMiddleware = (socket: Socket): Middleware => ({ dispatch }) => (next) => (action: any) => {
+export const multiSocketMiddleware = (socket: Socket): Middleware => ({ dispatch, getState }) => (next) => (action: any) => {
+    const socketList = getState().socketSlice.socketList;
+    console.log(getState())
+
     switch (action.type) {
         case 'socket/connect':
 
@@ -23,7 +27,9 @@ export const multiSocketMiddleware = (socket: Socket): Middleware => ({ dispatch
                     dispatch(setMarketPrice({ key: action.payload?.key, price: data.p }));
                 });
 
-                socketList[action.payload.key] = socket;
+                // socketList[action.payload.key] = socket;
+                console.log('adding to the list', socketList);
+                dispatch(addSocket({ key: action.payload.key, socket: socket }));
             }
             break;
 
@@ -33,7 +39,10 @@ export const multiSocketMiddleware = (socket: Socket): Middleware => ({ dispatch
             const socket = socketList[action.payload.key];
             if (socket) {
                 socket.disconnect();
-                delete socketList[action.payload.key];
+                // delete socketList[action.payload.key];
+                console.log('delted list', socketList);
+
+                dispatch(deleteSocket({ key: action.payload?.key }));
             }
             break;
 
