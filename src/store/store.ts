@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { Socket } from '../utils/socket'
-import { socketMiddleware } from './middleware/socketMiddleware'
+// import { socketMiddleware } from './middleware/socketMiddleware'
 import priceSlice from '../store/slices/marketPriceSlice'
+import { multiSocketMiddleware } from './middleware/multiSocketMiddleware'
 
 
 export const store = configureStore({
@@ -9,7 +10,7 @@ export const store = configureStore({
         price: priceSlice
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(socketMiddleware(new Socket())),
+        getDefaultMiddleware().concat(multiSocketMiddleware(new Socket())),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

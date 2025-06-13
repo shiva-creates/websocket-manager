@@ -1,27 +1,22 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 interface PriceState {
-    marketPrice: string;
-    ethMarketPrice: string;
+    prices: Record<string, string>;
 }
 
 const initialState: PriceState = {
-    marketPrice: '',
-    ethMarketPrice: '',
+    prices: {},
 };
 
 const priceSlice = createSlice({
     name: 'price',
     initialState,
     reducers: {
-        setMarketPrice(state, action: PayloadAction<string>) {
-            state.marketPrice = action.payload;
-        },
-        setEthMarketPrice(state, action: PayloadAction<string>) {
-            state.ethMarketPrice = action.payload;
+        setMarketPrice(state, action: PayloadAction<{ key: string; price: string }>) {
+            state.prices[action.payload.key] = action.payload.price;
         },
     },
 });
 
-export const { setMarketPrice, setEthMarketPrice } = priceSlice.actions;
+export const { setMarketPrice } = priceSlice.actions;
 export default priceSlice.reducer;

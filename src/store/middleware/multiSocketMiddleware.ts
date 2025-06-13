@@ -14,13 +14,13 @@ export const multiSocketMiddleware = (socket: Socket): Middleware => ({ dispatch
             if (!action.payload?.key || !action.payload?.url) break;
 
 
-            if (!socketList[action.payloadpayload.key]) {
+            if (!socketList[action.payload.key]) {
                 const socket = new Socket();
-                socket.connect(action.payloadpayload.url);
+                socket.connect(action.payload.url);
 
                 socket.on('message', (event) => {
                     const data = JSON.parse(event.data);
-                    dispatch(setMarketPrice({ key: action.payload?.key, price: data.data.p }));
+                    dispatch(setMarketPrice({ key: action.payload?.key, price: data.p }));
                 });
 
                 socketList[action.payload.key] = socket;

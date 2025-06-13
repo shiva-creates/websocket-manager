@@ -2,20 +2,14 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
 import './Profile.css'
 
 const Profile = () => {
-    const price = useAppSelector((state) => state.price.marketPrice)
+    const price = useAppSelector((state) => state.price.prices)
     const dispatch = useAppDispatch()
 
 
 
     const handleOpenConnection = () => {
         console.log('message')
-        dispatch(dispatch({
-            type: 'socket/connect',
-            payload: {
-                url: 'wss://fstream.binance.com/stream?streams=btcusdt@markPrice',
-                setPrice: 'MarketPrice'
-            },
-        }));
+        dispatch({ type: 'socket/connect', payload: { key: 'btc', url: 'wss://fstream.binance.com/ws/btcusdt@markPrice' } });
     }
 
     const handleConnectionMessage = () => {
@@ -28,14 +22,14 @@ const Profile = () => {
 
     const handleCloseConnection = () => {
         console.log('message')
-        dispatch({ type: 'socket/disconnect' });
+        dispatch({ type: 'socket/disconnect', payload: { key: 'btc' } });
     }
 
     return (
         <>
             <div className='profile-container'>
                 <h1>BTC/USDT Market Price</h1>
-                <h2>{price || 'Loading'}</h2>
+                <h2>{price.btc || '0'}</h2>
                 <div>
                     <button style={{ padding: '1rem', margin: '1rem' }} onClick={handleOpenConnection}>Connect Socket</button>
 
