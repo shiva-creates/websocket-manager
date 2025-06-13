@@ -6,6 +6,7 @@ import Home from './components/Home/Home';
 import Profile from './components/Profile/Profile';
 import Explore from './components/Explore/Explore';
 import Header from './components/Header/Header';
+import SocketManager from './components/SocketManager/SocketManager';
 
 function App() {
   // const price = useAppSelector((state) => state.price.marketPrice)
@@ -62,6 +63,7 @@ function App() {
           <Route path='/' element={< Home />} />
           <Route path='/profile' element={< Profile />} />
           <Route path='/explore' element={< Explore />} />
+          <Route path='/socket-manager' element={< SocketManager />} />
         </Routes>
       </BrowserRouter>
     </>

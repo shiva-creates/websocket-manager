@@ -9,3 +9,13 @@
 h2 {
     padding: 1rem 0;
 }
+
+.socket-btn {
+    padding: 1rem;
+    width: 15rem;
+    border-radius: 20px;
+    margin: 1rem;
+    background-color: #161616;
+    color: white;
+    border: 1px solid black;
+}

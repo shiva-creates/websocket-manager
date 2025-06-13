@@ -31,13 +31,13 @@ const Profile = () => {
                 <h1>BTC/USDT Market Price</h1>
                 <h2>{price.btc || '0'}</h2>
                 <div>
-                    <button style={{ padding: '1rem', margin: '1rem' }} onClick={handleOpenConnection}>Connect Socket</button>
+                    <button className='socket-btn' onClick={handleOpenConnection}>Connect Socket</button>
 
                 </div>
 
                 <div>
 
-                    <button style={{ padding: '1rem', margin: '1rem' }} onClick={handleCloseConnection}>Close Socket</button>
+                    <button className='socket-btn' onClick={handleCloseConnection}>Close Socket</button>
 
                 </div>
 
